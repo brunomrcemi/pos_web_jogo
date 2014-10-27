@@ -1,0 +1,24 @@
+#divcabecalho
+{
+  background-color: #B2DFEE;
+}
+#divdificuldade
+{
+  background-color: #FFF8DC;
+}
+
+#divinput
+{
+ background-color: #CAE1FF;
+}
+.row
+{
+  display: block;
+}
+.container
+{
+   /*border-style: solid;*/
+   height: 600px;
+   margin-top: 30px;
+}
+

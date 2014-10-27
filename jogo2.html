@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <script src="scripts/jquery.min.js"></script>
+   <link rel="stylesheet" href="styles/jogo.css" />
+   <script src="scripts/jquery-ui.min.js"></script>		
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <script src="scripts/bootstrap.min.js"></script>
+</head>
+ <body>
+    <div class="container">
+     <div class="row">
+	   <div id="divcabecalho" class="col-md-12">
+         <h1>Adivinhe meu número!</h1>
+	   </div>
+      </div>
+	 <div id="divdificuldade" class="row">
+	   <div class="col-md-3">
+	    <label>Escolha o nivel de dificuldade:</label>
+	   </div>
+	   <div class="col-md-8">
+	      <label class="checkbox-inline">
+			 <input name="radioGroup" value="1" type="radio"> Fácil
+		  </label>
+		  <label class="checkbox-inline">
+			 <input name="radioGroup"  value="2" type="radio"> Normal
+		  </label>
+		  <label class="checkbox-inline">
+			 <input name="radioGroup" value="3" type="radio"> Difícil
+		  </label>
+	   </div>  
+	 </div>
+	  <div id="divinput" class="row">
+	     <div class="col-md-7">
+		    <label>Qual é o número que estou pensando?</label> 
+		 </div>
+		 <div class="col-md-3">
+		    <input type="number" id="valor">
+		 </div>
+		 <div
+ 	   <div class="col-md-2">
+	      <button class="btn btn-primary btn-sm" id="enviar">Enviar</button>
+	   </div>
+	</div>
+	<div id="resultado" class="row">
+	    <div class="alert alert-warning" id="resultado">
+			<h2>O número é menor que o informado</h2>
+		</div>
+		<button class="btn btn-success pull-right" id="novo">Novo Jogo</button>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  	function Jogo(){
+		this.tentativas = 0;
+		this.sorteado = null;
+		this.nivelSelecionado = 1;
+
+		this.novo_jogo = function(nivel){
+			this.tentativas = 0;
+			this.sorteado = Math.floor((Math.random() * 3) + 1);
+		}
+		
+	   this.altera_dificuldade = function(nivel){
+		  if(nivel != this.nivelSelecionado)
+		   {
+		     this.nivelSelecionado = parseInt(nivel);
+		     if(nivel == 1){
+		       this.sorteado = Math.floor((Math.random() * 3) + 1);
+		     }
+			 else if(nivel == 2)
+		     {
+		       this.sorteado = Math.floor((Math.random() * 5) + 10);
+		     }
+		     else if(nivel == 3)
+		     {
+		       this.sorteado = Math.floor((Math.random() * 10) + 10);
+		     }
+		   }
+		}
+		
+		this.tentar = function(palpite){
+			if(palpite == this.sorteado){
+				$('#resultado h2').html("Você venceu!");
+				$('#resultado').effect("bounce", { direction:'up', times:10 }, 500);	
+			}else if(palpite > this.sorteado){
+				$('#resultado').html("O número sorteado é menor!");
+			}else{
+				$('#resultado').html("O número sorteado é maior!");
+			}
+		}
+	}
+
+	var j = new Jogo();
+	j.novo_jogo();
+	
+   $('#enviar').click(function()
+	  {
+	    var nivel = "";
+	    
+		 $('input:radio[name=radioGroup]').each(function() {
+      
+                        if ($(this).is(':checked'))
+                           nivel = parseInt($(this).val());
+         })
+		 
+		 j.altera_dificuldade(nivel);
+		 var valor = $('#valor').val();
+		 j.tentar(parseInt(valor));
+     });	   
+ 
+  
+
+
+</script>
+
+
