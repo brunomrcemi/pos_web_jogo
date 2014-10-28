@@ -21,7 +21,7 @@
 	   </div>
 	   <div class="col-md-8">
 	      <label class="checkbox-inline">
-			 <input name="radioGroup" value="1" type="radio"> Fácil
+			 <input name="radioGroup" value="1" type="radio" checked> Fácil
 		  </label>
 		  <label class="checkbox-inline">
 			 <input name="radioGroup"  value="2" type="radio"> Normal
@@ -43,9 +43,9 @@
 	      <button class="btn btn-primary btn-sm" id="enviar">Enviar</button>
 	   </div>
 	</div>
-	<div id="resultado" class="row">
+	<div id="divresultado" class="row">
 	    <div class="alert alert-warning" id="resultado">
-			<h2>O número é menor que o informado</h2>
+			<h2></h2>
 		</div>
 		<button class="btn btn-success pull-right" id="novo">Novo Jogo</button>
     </div>
@@ -69,27 +69,32 @@
 		   {
 		     this.nivelSelecionado = parseInt(nivel);
 		     if(nivel == 1){
-		       this.sorteado = Math.floor((Math.random() * 3) + 1);
+		       this.sorteado = Math.floor((Math.random() * 3));
 		     }
 			 else if(nivel == 2)
 		     {
-		       this.sorteado = Math.floor((Math.random() * 5) + 10);
+		       this.sorteado = Math.floor((Math.random() * 10));
 		     }
 		     else if(nivel == 3)
 		     {
-		       this.sorteado = Math.floor((Math.random() * 10) + 10);
+		       this.sorteado = Math.floor((Math.random() * 100));
 		     }
 		   }
 		}
 		
 		this.tentar = function(palpite){
 			if(palpite == this.sorteado){
-				$('#resultado h2').html("Você venceu!");
+				$('#resultado h2').text("Você venceu!");
+				$('#resultado').css("background","#9AFF9A");
 				$('#resultado').effect("bounce", { direction:'up', times:10 }, 500);	
 			}else if(palpite > this.sorteado){
-				$('#resultado').html("O número sorteado é menor!");
+				$('#resultado h2').html("O número sorteado é menor!");
+				$('#resultado').css("background","#FFA07A");
+				$('#resultado').effect("bounce", { direction:'up', times:10 }, 500);
 			}else{
-				$('#resultado').html("O número sorteado é maior!");
+				$('#resultado h2').html("O número sorteado é maior!");
+				$('#resultado').css("background","#FFA07A");
+				$('#resultado').effect("bounce", { direction:'up', times:10 }, 500);
 			}
 		}
 	}
